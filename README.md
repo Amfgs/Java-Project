@@ -288,10 +288,6 @@ chore: Build/tooling changes
 - Verify render() conditions
 - Test bonus operations
 
-## 📝 License
-
-This project is part of an academic assignment for Object-Oriented Programming course at UFPE.
-
 ---
 
 **Author**: Diego  
