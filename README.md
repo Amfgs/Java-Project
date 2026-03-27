@@ -290,7 +290,6 @@ chore: Build/tooling changes
 
 ---
 
-**Author**: Diego  
-**Institution**: Centro de Informática - UFPE  
+**Author**: Arthur Moury e Diego Magnata
 **Last Updated**: March 2026
 EOF
