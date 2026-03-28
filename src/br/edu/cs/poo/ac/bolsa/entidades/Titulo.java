@@ -2,6 +2,7 @@ package br.edu.cs.poo.ac.bolsa.entidades;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Titulo {
 	private InvestidorPessoa investidorPessoa;
@@ -111,22 +112,50 @@ public class Titulo {
 	}
 	
 	public boolean render() {
-		
-		if (this.status != StatusTitulo.ATIVO) return false;
-		
-		LocalDate atual = LocalDate.now();
-		if (atual.isAfter(dataVencimento)) return false;
-		
-		if (atual.isBefore(dataAplicacao)) return false;
-		
-		if (atual.isBefore(dataUltimoRendimento)) return false;
-		
-		if ()
-		
-		
-		
-		
-	}
+    
+    if (this.status != StatusTitulo.ATIVO) return false;
+    
+    LocalDate atual = LocalDate.now();
+    if (atual.isAfter(this.dataVencimento)) return false;
+    
+    if (atual.isBefore(this.dataAplicacao)) return false;
+    
+    if (this.dataUltimoRendimento != null && atual.isBefore(this.dataUltimoRendimento)) return false;
+    
+    int dias;
+    if (this.dataUltimoRendimento == null) {
+        Period diasPeriod = Period.between(this.dataAplicacao, atual);
+        dias = diasPeriod.getDays();
+    } else {
+        Period diasPeriod = Period.between(this.dataUltimoRendimento, atual);
+        dias = diasPeriod.getDays();
+    }
+
+    double novoValor = this.valorAtual.doubleValue() * Math.pow(1 + (this.taxaDiaria.doubleValue()/100), dias);
+
+    this.valorAtual = new BigDecimal(novoValor);
+    this.dataUltimoRendimento = atual;
+    
+    return true;
+}
+
+public String getNumero() {
+    if (this.investidorPessoa != null) {
+        String cpf = this.investidorPessoa.getCpf();
+        long codigoAtivo = this.ativo.getCodigo();
+        String data = this.dataAplicacao.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd"));
+        return "000" + cpf + codigoAtivo + data;
+    }
+
+    if (this.investidorEmpresa != null) {
+        String cnpj = this.investidorEmpresa.getCnpj();
+        long codigoAtivo = this.ativo.getCodigo();
+        String data = this.dataAplicacao.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd"));
+        return cnpj + codigoAtivo + data;
+    }
+    
+    return null;
+}
 	
 	
 }
