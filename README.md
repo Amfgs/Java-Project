@@ -288,13 +288,8 @@ chore: Build/tooling changes
 - Verify render() conditions
 - Test bonus operations
 
-## 📝 License
-
-This project is part of an academic assignment for Object-Oriented Programming course at UFPE.
-
 ---
 
-**Author**: Diego  
-**Institution**: Centro de Informática - UFPE  
+**Author**: Arthur Moury e Diego Magnata
 **Last Updated**: March 2026
 EOF
