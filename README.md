@@ -290,6 +290,11 @@ chore: Build/tooling changes
 
 ---
 
-**Author**: Arthur Moury e Diego Magnata
-**Last Updated**: March 2026
-EOF
+**Authors**: Arthur Moury and Diego Magnata
+
+**Contact**:
+* **Arthur Moury**: [Email](mailto:amfgs@cesar.school) | [GitHub](https://github.com/Amfgs) | [LinkedIn](https://linkedin.com/in/arthurmoury)
+* **Diego Magnata**: [Email](mailto:diegoferreiramagnata@gmail.com) | [GitHub](https://github.com/DiMag-CC) | [LinkedIn](https://linkedin.com/in/dimagcc)
+
+
+
