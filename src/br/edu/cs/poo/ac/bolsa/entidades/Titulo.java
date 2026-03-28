@@ -137,25 +137,23 @@ public class Titulo {
     this.dataUltimoRendimento = atual;
     
     return true;
-}
+	}
 
-public String getNumero() {
-    if (this.investidorPessoa != null) {
-        String cpf = this.investidorPessoa.getCpf();
-        long codigoAtivo = this.ativo.getCodigo();
-        String data = this.dataAplicacao.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd"));
-        return "000" + cpf + codigoAtivo + data;
-    }
+	public String getNumero() {
+		if (this.investidorPessoa != null) {
+			String cpf = this.investidorPessoa.getCpf();
+			long codigoAtivo = this.ativo.getCodigo();
+			String data = this.dataAplicacao.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd"));
+			return "000" + cpf + codigoAtivo + data;
+		}
 
-    if (this.investidorEmpresa != null) {
-        String cnpj = this.investidorEmpresa.getCnpj();
-        long codigoAtivo = this.ativo.getCodigo();
-        String data = this.dataAplicacao.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd"));
-        return cnpj + codigoAtivo + data;
-    }
-    
-    return null;
-}
-	
-	
+		if (this.investidorEmpresa != null) {
+			String cnpj = this.investidorEmpresa.getCnpj();
+			long codigoAtivo = this.ativo.getCodigo();
+			String data = this.dataAplicacao.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd"));
+			return cnpj + codigoAtivo + data;
+		}
+		
+		return null;
+	}
 }
