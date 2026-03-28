@@ -294,7 +294,7 @@ chore: Build/tooling changes
 
 **Contact**:
 * **Arthur Moury**: [Email](mailto:amfgs@cesar.school) | [GitHub](https://github.com/Amfgs) | [LinkedIn](https://linkedin.com/in/arthurmoury)
-* **Diego Magnata**: [Email](mailto:diegoferreiramagnata@gmail.com) | [GitHub](https://github.com/DiMag-CC) | [LinkedIn](https://linkedin.com/in/dimagcc)
+* **Diego Magnata**: [Email](mailto:diegoferreiramagnata@gmail.com) | [GitHub](https://github.com/DiMag-CC) | [LinkedIn](https://linkedin.com/in/diegomagcc)
 
 
 
