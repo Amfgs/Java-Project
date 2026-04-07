@@ -130,9 +130,9 @@ public class Titulo implements Serializable {
     if (this.status != StatusTitulo.ATIVO) return false;
     
     LocalDate atual = LocalDate.now();
-    if (atual.isAfter(this.dataVencimento)) return false;
+    if (atual.isAfter(this.dataVencimento) || atual.isEqual(this.dataVencimento)) return false;
     
-    if (atual.isBefore(this.dataAplicacao)) return false;
+    if (atual.isBefore(this.dataAplicacao) || atual.isEqual(this.dataAplicacao)) return false;
     
     if (this.dataUltimoRendimento != null && atual.isBefore(this.dataUltimoRendimento)) return false;
     
