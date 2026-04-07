@@ -8,6 +8,13 @@ public class InvestidorPessoa extends Investidor{
 	private double renda;
 	private FaixaRenda faixaRenda;
 	
+	public InvestidorPessoa() {
+		super();
+		this.cpf = null;
+		this.renda = 0.0;
+		this.faixaRenda = null;
+	}
+
 	public InvestidorPessoa(String cpf, double renda, FaixaRenda faixaRenda, String nome, Endereco endereco, LocalDate dataNascimento, BigDecimal bonus, Contatos contatos) {
 		super(nome, endereco, dataNascimento, bonus, contatos);
 		this.cpf = cpf;

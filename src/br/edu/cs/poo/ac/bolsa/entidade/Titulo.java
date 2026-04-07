@@ -17,6 +17,19 @@ public class Titulo implements Serializable {
 	private LocalDate dataUltimoRendimento;
 	private StatusTitulo status;
 	
+	public Titulo() {
+		this.investidorPessoa = null;
+		this.investidorEmpresa = null;
+		this.ativo = null;
+		this.valorInvestido = null;
+		this.valorAtual = null;
+		this.taxaDiaria = null;
+		this.dataAplicacao = null;
+		this.dataVencimento = null;
+		this.dataUltimoRendimento = null;
+		this.status = null;
+	}
+	
 	public Titulo(InvestidorPessoa investidorPessoa, InvestidorEmpresa investidorEmpresa, Ativo ativo,
 			BigDecimal valorInvestido, BigDecimal valorAtual, BigDecimal taxaDiaria, LocalDate dataAplicacao,
 			LocalDate dataVencimento, LocalDate dataUltimoRendimento, StatusTitulo status) {

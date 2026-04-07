@@ -7,6 +7,12 @@ public class InvestidorEmpresa extends Investidor {
 	private String cnpj;
 	private double faturamento;
 	
+	public InvestidorEmpresa() {
+		super();
+		this.cnpj = null;
+		this.faturamento = 0.0;
+	}
+
 	public InvestidorEmpresa(String cnpj, double faturamento, String nome, Endereco endereco, LocalDate dataAbertura, BigDecimal bonus, Contatos contatos) {
 		super(nome, endereco, dataAbertura, bonus, contatos);
 		this.cnpj = cnpj;

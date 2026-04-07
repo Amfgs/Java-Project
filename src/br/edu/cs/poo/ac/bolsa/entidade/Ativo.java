@@ -11,6 +11,18 @@ public class Ativo implements Serializable {
 	private FaixaRenda faixaMinimaPermitida;
 	private int prazoEmMeses;
 
+	public Ativo() {
+		this.codigo = 0;
+		this.descricao = null;
+		this.valorMinimoAplicacao = 0.0;
+		this.valorMaximoAplicacao = 0.0;
+		this.taxaMensalMinima = 0.0;
+		this.taxaMensalMaxima = 0.0;
+		this.faixaMinimaPermitida = null;
+		this.prazoEmMeses = 0;
+	}
+
+	
 	public Ativo(long codigo, String descricao, double valorMinimoAplicacao, double valorMaximoAplicacao,
 			double taxaMensalMinima, double taxaMensalMaxima, FaixaRenda faixaMinimaPermitida, int prazoEmMeses) {
 		this.codigo = codigo;

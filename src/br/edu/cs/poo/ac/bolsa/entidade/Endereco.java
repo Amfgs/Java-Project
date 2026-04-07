@@ -10,6 +10,16 @@ public class Endereco implements Serializable {
 	private String estado;
 	private String cidade;
 	
+	public Endereco() {
+		this.logradouro = null;
+		this.cep = null;
+		this.numero = null;
+		this.complemento = null;
+		this.pais = null;
+		this.estado = null;
+		this.cidade = null;
+	}
+
 	public Endereco(String logradouro, String cep, String numero, String complemento, String pais, String estado, String cidade) {
 		this.logradouro = logradouro;
 		this.cep = cep;

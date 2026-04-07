@@ -8,6 +8,14 @@ public class Contatos implements Serializable {
 	private String numeroWhatszap;
 	private String nomeParaContato;
 	
+	public Contatos() {
+		this.email = null;
+		this.telefoneFixo = null;
+		this.telefoneCelular = null;
+		this.numeroWhatszap = null;
+		this.nomeParaContato = null;
+	}
+
 	public Contatos(String email, String telefoneFixo, String telefoneCelular, String numeroWhatszap, String nomeParaContato) {
 		this.email = email;
 		this.telefoneFixo = telefoneFixo;
