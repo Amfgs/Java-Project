@@ -129,8 +129,7 @@ public class TituloTest {
         t.render();
 
         // Fórmula esperada: 1000 * (1.01)^3
-        BigDecimal esperado = new BigDecimal("1000")
-                .multiply(new BigDecimal("1.01").pow(3));
+        BigDecimal esperado = new BigDecimal("1000").multiply(new BigDecimal("1.01").pow(3));
 
         assertEquals(0, t.getValorAtual().compareTo(esperado));
     }
@@ -168,5 +167,6 @@ public class TituloTest {
         String esperado = empresa.getCnpj() + ativo.getCodigo() + "202405200000";
 
         assertEquals(esperado, titulo.getNumero());
+        // nada
     }
 }
