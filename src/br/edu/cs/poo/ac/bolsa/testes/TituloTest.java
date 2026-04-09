@@ -25,15 +25,10 @@ public class TituloTest {
 
     @BeforeEach
     void setup() {
-        pessoa = new InvestidorPessoa(
-                "MARCOS", null, null, BigDecimal.ZERO, null,
-                "12345678901", 30000.00, FaixaRenda.REGULAR);
-        empresa = new InvestidorEmpresa(
-                "ACME", null, null, BigDecimal.ZERO, null,
-                "12345678901234", 3000000.00);
-        ativo = new Ativo(
-                123456, "C-BONDS", 10000.00, 1000000000.00,
-                0.10, 1.00, FaixaRenda.REGULAR, 24);
+        pessoa = new InvestidorPessoa("MARCOS", null, null, BigDecimal.ZERO, null, "12345678901", 30000.00,
+                FaixaRenda.REGULAR);
+        empresa = new InvestidorEmpresa("ACME", null, null, BigDecimal.ZERO, null, "12345678901234", 3000000.00);
+        ativo = new Ativo(123456, "C-BONDS", 10000.00, 1000000000.00, 0.10, 1.00, FaixaRenda.REGULAR, 24);
     }
 
     private Titulo criarTituloPadrao() {
@@ -153,8 +148,8 @@ public class TituloTest {
     void testGetNumeroParaInvestidorPessoa() {
 
         // Mocks simples
-        InvestidorPessoa pessoa = new InvestidorPessoa("MARCUS", null, null,
-                BigDecimal.ZERO, null, null, 100000.0, FaixaRenda.DIFERENCIADA);
+        InvestidorPessoa pessoa = new InvestidorPessoa("MARCUS", null, null, BigDecimal.ZERO, null, null, 100000.0,
+                FaixaRenda.DIFERENCIADA);
         pessoa.setCpf("12345678901");
 
         LocalDate dataAplicacao = LocalDate.of(2024, 3, 10);
@@ -183,8 +178,7 @@ public class TituloTest {
     void testGetNumeroParaInvestidorEmpresa() {
 
         // Mocks simples
-        InvestidorEmpresa empresa = new InvestidorEmpresa("ACME", null, null,
-                BigDecimal.ZERO, null, null, 100000.0);
+        InvestidorEmpresa empresa = new InvestidorEmpresa("ACME", null, null, BigDecimal.ZERO, null, null, 100000.0);
         empresa.setCnpj("11222333444455");
 
         LocalDate dataAplicacao = LocalDate.of(2024, 5, 20);
