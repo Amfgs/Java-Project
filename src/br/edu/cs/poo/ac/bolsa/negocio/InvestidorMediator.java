@@ -1,4 +1,4 @@
-package br.edu.cs.poo.ac.bolsa;
+package br.edu.cs.poo.ac.bolsa.negocio;
 
 import java.math.BigDecimal;
 
@@ -12,7 +12,7 @@ import br.edu.cs.poo.ac.bolsa.util.ResultadoValidacao;
 import br.edu.cs.poo.ac.bolsa.util.ValidadorCpfCnpj;
 
 public class InvestidorMediator {
-    
+
     private InvestidorPessoaDAO daoPessoa = new InvestidorPessoaDAO();
     private InvestidorEmpresaDAO daoEmpresa = new InvestidorEmpresaDAO();
 

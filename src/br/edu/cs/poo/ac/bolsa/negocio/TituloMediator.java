@@ -1,4 +1,4 @@
-package br.edu.cs.poo.ac.bolsa;
+package br.edu.cs.poo.ac.bolsa.negocio;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,15 +12,15 @@ import br.edu.cs.poo.ac.bolsa.entidade.Titulo;
 import br.edu.cs.poo.ac.bolsa.util.MensagensValidacao;
 
 public class TituloMediator {
-	
+
 	private TituloDAO dao = new TituloDAO();
-	
+
 	public TituloMediator() {
 	}
-	
+
 	private MensagensValidacao validar(Titulo titulo) {
 		MensagensValidacao msgs = new MensagensValidacao();
-		
+
 		if (titulo == null) {
 			msgs.adicionar("Título não pode ser nulo");
 			return msgs;
@@ -67,16 +67,16 @@ public class TituloMediator {
 		if (titulo.getStatus() == null) {
 			msgs.adicionar("Status do título é obrigatório");
 		}
-		
+
 		return msgs;
 	}
 
 	public MensagensValidacao incluir(Titulo titulo) {
 		MensagensValidacao msgs = validar(titulo);
-		
+
 		if (msgs.estaVazio()) {
 			boolean resultado = dao.incluir(titulo);
-			
+
 			if (!resultado) {
 				msgs.adicionar("Título já existente");
 			}
@@ -113,7 +113,7 @@ public class TituloMediator {
 		if (!resultado) {
 			msgs.adicionar("Título não encontrado com este número");
 		}
-		
+
 		return msgs;
 	}
 
@@ -121,7 +121,7 @@ public class TituloMediator {
 		if (numeroTitulo == null || numeroTitulo.trim().isEmpty()) {
 			return null;
 		}
-		
+
 		return dao.buscar(numeroTitulo.trim());
 	}
 }

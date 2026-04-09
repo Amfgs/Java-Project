@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ValidadorCpfCnpjTest {
 
     // ---------------------------------------------------------
-    //  TESTES CPF
+    // TESTES CPF
     // ---------------------------------------------------------
 
     @Test
@@ -42,7 +42,7 @@ public class ValidadorCpfCnpjTest {
         // CPF válido conhecido
         assertNull(ValidadorCpfCnpj.validarCpf("529.982.247-25"));
     }
-    
+
     @Test
     public void testCpfValido1() {
         // CPF válido conhecido
@@ -50,7 +50,7 @@ public class ValidadorCpfCnpjTest {
     }
 
     // ---------------------------------------------------------
-    //  TESTES CNPJ
+    // TESTES CNPJ
     // ---------------------------------------------------------
 
     @Test
@@ -82,6 +82,7 @@ public class ValidadorCpfCnpjTest {
         // CNPJ válido conhecido
         assertNull(ValidadorCpfCnpj.validarCnpj("45.723.174/0001-10"));
     }
+
     @Test
     public void testCnpjValido1() {
         // CNPJ válido conhecido
