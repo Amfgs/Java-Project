@@ -25,25 +25,16 @@ public class TituloTest {
 
     @BeforeEach
     void setup() {
-        pessoa = new InvestidorPessoa("MARCOS", null, null, BigDecimal.ZERO, null, "12345678901", 30000.00,
-                FaixaRenda.REGULAR);
-        empresa = new InvestidorEmpresa("ACME", null, null, BigDecimal.ZERO, null, "12345678901234", 3000000.00);
+        pessoa = new InvestidorPessoa("12345678901", 30000.00, FaixaRenda.REGULAR, "MARCOS", null, null,
+                BigDecimal.ZERO, null);
+        empresa = new InvestidorEmpresa("12345678901234", 3000000.00, "ACME", null, null, BigDecimal.ZERO, null);
         ativo = new Ativo(123456, "C-BONDS", 10000.00, 1000000000.00, 0.10, 1.00, FaixaRenda.REGULAR, 24);
     }
 
     private Titulo criarTituloPadrao() {
-        return new Titulo(
-                pessoa,
-                empresa,
-                ativo,
-                new BigDecimal("1000.00"), // valorInvestido
-                new BigDecimal("1000.00"), // valorAtual
-                new BigDecimal("1.0"), // taxaDiaria (1% ao dia)
-                LocalDate.now().minusDays(10), // dataAplicacao
-                LocalDate.now().plusDays(10), // dataVencimento
-                null, // dataUltimoRendimento
-                StatusTitulo.ATIVO // status
-        );
+        return new Titulo(pessoa, empresa, ativo, new BigDecimal("1000.00"), new BigDecimal("1000.00"),
+                new BigDecimal("1.0"), LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), null,
+                StatusTitulo.ATIVO);
     }
 
     // ---------------------------------------------------------
@@ -148,28 +139,16 @@ public class TituloTest {
     void testGetNumeroParaInvestidorPessoa() {
 
         // Mocks simples
-        InvestidorPessoa pessoa = new InvestidorPessoa("MARCUS", null, null, BigDecimal.ZERO, null, null, 100000.0,
-                FaixaRenda.DIFERENCIADA);
+        InvestidorPessoa pessoa = new InvestidorPessoa(null, 100000.0, FaixaRenda.DIFERENCIADA, "MARCUS", null, null,
+                BigDecimal.ZERO, null);
         pessoa.setCpf("12345678901");
 
         LocalDate dataAplicacao = LocalDate.of(2024, 3, 10);
 
-        Titulo titulo = new Titulo(
-                pessoa,
-                null,
-                ativo,
-                BigDecimal.TEN,
-                BigDecimal.TEN,
-                BigDecimal.ONE,
-                dataAplicacao,
-                dataAplicacao.plusDays(30),
-                null,
-                StatusTitulo.ATIVO);
+        Titulo titulo = new Titulo(pessoa, null, ativo, BigDecimal.TEN, BigDecimal.TEN, BigDecimal.ONE, dataAplicacao,
+                dataAplicacao.plusDays(30), null, StatusTitulo.ATIVO);
 
-        String esperado = "000" +
-                pessoa.getCpf() +
-                ativo.getCodigo() +
-                "202403100000";
+        String esperado = "000" + pessoa.getCpf() + ativo.getCodigo() + "202403100000";
 
         assertEquals(esperado, titulo.getNumero());
     }
@@ -178,26 +157,15 @@ public class TituloTest {
     void testGetNumeroParaInvestidorEmpresa() {
 
         // Mocks simples
-        InvestidorEmpresa empresa = new InvestidorEmpresa("ACME", null, null, BigDecimal.ZERO, null, null, 100000.0);
+        InvestidorEmpresa empresa = new InvestidorEmpresa(null, 100000.0, "ACME", null, null, BigDecimal.ZERO, null);
         empresa.setCnpj("11222333444455");
 
         LocalDate dataAplicacao = LocalDate.of(2024, 5, 20);
 
-        Titulo titulo = new Titulo(
-                null,
-                empresa,
-                ativo,
-                BigDecimal.TEN,
-                BigDecimal.TEN,
-                BigDecimal.ONE,
-                dataAplicacao,
-                dataAplicacao.plusDays(60),
-                null,
-                StatusTitulo.ATIVO);
+        Titulo titulo = new Titulo(null, empresa, ativo, BigDecimal.TEN, BigDecimal.TEN, BigDecimal.ONE, dataAplicacao,
+                dataAplicacao.plusDays(60), null, StatusTitulo.ATIVO);
 
-        String esperado = empresa.getCnpj() +
-                ativo.getCodigo() +
-                "202405200000";
+        String esperado = empresa.getCnpj() + ativo.getCodigo() + "202405200000";
 
         assertEquals(esperado, titulo.getNumero());
     }
