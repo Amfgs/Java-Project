@@ -19,7 +19,7 @@ public class InvestidorMediator {
     public InvestidorMediator() {
     }
 
-    public MensagensValidacao incluirPessoa(InvestidorPessoa investidorPessoa) {
+    public MensagensValidacao incluirInvestidorPessoa(InvestidorPessoa investidorPessoa) {
         MensagensValidacao msgs = validarInvestidorPessoa(investidorPessoa);
 
         if (msgs.estaVazio()) {
@@ -31,7 +31,7 @@ public class InvestidorMediator {
         return msgs;
     }
 
-    public MensagensValidacao alterarPessoa(InvestidorPessoa investidorPessoa) {
+    public MensagensValidacao alterarInvestidorPessoa(InvestidorPessoa investidorPessoa) {
         MensagensValidacao msgs = validarInvestidorPessoa(investidorPessoa);
 
         if (msgs.estaVazio()) {
@@ -43,7 +43,7 @@ public class InvestidorMediator {
         return msgs;
     }
 
-    public MensagensValidacao excluirPessoa(String cpf) {
+    public MensagensValidacao excluirInvestidorPessoa(String cpf) {
         MensagensValidacao msgs = new MensagensValidacao();
 
         if (cpf == null || cpf.trim().isEmpty()) {
@@ -58,7 +58,7 @@ public class InvestidorMediator {
         return msgs;
     }
 
-    public InvestidorPessoa buscarPessoa(String cpf) {
+    public InvestidorPessoa buscarInvestidorPessoa(String cpf) {
         if (cpf == null || cpf.trim().isEmpty()) {
             return null;
         }
@@ -66,7 +66,7 @@ public class InvestidorMediator {
         return daoPessoa.buscar(cpf.trim());
     }
 
-    public MensagensValidacao incluirEmpresa(InvestidorEmpresa investidorEmpresa) {
+    public MensagensValidacao incluirInvestidorEmpresa(InvestidorEmpresa investidorEmpresa) {
         MensagensValidacao msgs = validarInvestidorEmpresa(investidorEmpresa);
 
         if (msgs.estaVazio()) {
@@ -78,7 +78,7 @@ public class InvestidorMediator {
         return msgs;
     }
 
-    public MensagensValidacao alterarEmpresa(InvestidorEmpresa investidorEmpresa) {
+    public MensagensValidacao alterarInvestidorEmpresa(InvestidorEmpresa investidorEmpresa) {
         MensagensValidacao msgs = validarInvestidorEmpresa(investidorEmpresa);
 
         if (msgs.estaVazio()) {
@@ -90,7 +90,7 @@ public class InvestidorMediator {
         return msgs;
     }
 
-    public MensagensValidacao excluirEmpresa(String cnpj) {
+    public MensagensValidacao excluirInvestidorEmpresa(String cnpj) {
         MensagensValidacao msgs = new MensagensValidacao();
 
         if (cnpj == null || cnpj.trim().isEmpty()) {
@@ -105,14 +105,13 @@ public class InvestidorMediator {
         return msgs;
     }
 
-    public InvestidorEmpresa buscarEmpresa(String cnpj) {
+    public InvestidorEmpresa buscarInvestidorEmpresa(String cnpj) {
         if (cnpj == null || cnpj.trim().isEmpty()) {
             return null;
         }
 
         return daoEmpresa.buscar(cnpj.trim());
     }
-
     private MensagensValidacao validarInvestidorPessoa(InvestidorPessoa investidorPessoa) {
         MensagensValidacao msgs = new MensagensValidacao();
 

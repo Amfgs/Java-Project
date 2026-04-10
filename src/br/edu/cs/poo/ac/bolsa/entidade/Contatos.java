@@ -5,22 +5,22 @@ public class Contatos implements Serializable {
 	private String email;
 	private String telefoneFixo;
 	private String telefoneCelular;
-	private String numeroWhatszap;
+	private String numeroWhatsApp;
 	private String nomeParaContato;
 	
 	public Contatos() {
 		this.email = null;
 		this.telefoneFixo = null;
 		this.telefoneCelular = null;
-		this.numeroWhatszap = null;
+		this.numeroWhatsApp = null;
 		this.nomeParaContato = null;
 	}
 
-	public Contatos(String email, String telefoneFixo, String telefoneCelular, String numeroWhatszap, String nomeParaContato) {
+	public Contatos(String email, String telefoneFixo, String telefoneCelular, String numeroWhatsApp, String nomeParaContato) {
 		this.email = email;
 		this.telefoneFixo = telefoneFixo;
 		this.telefoneCelular = telefoneCelular;
-		this.numeroWhatszap = numeroWhatszap;
+		this.numeroWhatsApp = numeroWhatsApp;
 		this.nomeParaContato = nomeParaContato;
 	}
 	
@@ -48,14 +48,14 @@ public class Contatos implements Serializable {
 		this.telefoneCelular = telefoneCelular;
 	}
 
-	public String getNumeroWhatszap() {
-		return numeroWhatszap;
+	public String getnumeroWhatsApp() {
+		return numeroWhatsApp;
 	}
 
-	public void setNumeroWhatszap(String numeroWhatszap) {
-		this.numeroWhatszap = numeroWhatszap;
-	}
-
+	public void setNumeroWhatsApp(String numeroWhatsApp) {
+		this.setNumeroWhatsApp(numeroWhatsApp);
+	}	
+	
 	public String getNomeParaContato() {
 		return nomeParaContato;
 	}

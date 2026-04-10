@@ -25,6 +25,10 @@ public class MensagensValidacao {
         return new ArrayList<>(this.mensagens);
     }
     
+    public String[] getMensagens() {
+        return this.mensagens.toArray(new String[0]);
+    }
+    
     @Override
     public String toString() {
         if (this.estaVazio()) {
