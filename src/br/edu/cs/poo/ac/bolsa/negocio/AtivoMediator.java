@@ -6,126 +6,105 @@ import br.edu.cs.poo.ac.bolsa.util.MensagensValidacao;
 
 public class AtivoMediator {
 
-	private static AtivoMediator instancia;
-	private AtivoDAO dao = new AtivoDAO();
+    private static AtivoMediator instancia;
+    private AtivoDAO dao = new AtivoDAO();
 
-	public AtivoMediator() {
-	}
+    private AtivoMediator() { }
 
-	public static AtivoMediator getInstancia() {
-		if (instancia == null) {
-			instancia = new AtivoMediator();
-		}
-		return instancia;
-	}
+    public static AtivoMediator getInstancia() {
+        if (instancia == null) {
+            instancia = new AtivoMediator();
+        }
+        return instancia;
+    }
 
-	private MensagensValidacao validar(Ativo ativo) {
-		MensagensValidacao msgs = new MensagensValidacao();
+    private MensagensValidacao validar(Ativo ativo) {
+        MensagensValidacao msgs = new MensagensValidacao();
 
-		if (ativo == null) {
-			msgs.adicionar("Ativo não pode ser nulo");
-			return msgs;
-		}
+        if (ativo == null) {
+            msgs.adicionar("Ativo não informado.");
+            return msgs;
+        }
 
-		if (ativo.getCodigo() <= 0) {
-			msgs.adicionar("Código do ativo deve ser maior que zero");
-		}
+        if (ativo.getCodigo() <= 0) {
+            msgs.adicionar("Código deve ser maior que zero.");
+        }
 
-		if (ativo.getDescricao() == null || ativo.getDescricao().trim().isEmpty()) {
-			msgs.adicionar("Descrição do ativo é obrigatória");
-		}
+        if (ativo.getDescricao() == null || ativo.getDescricao().trim().isEmpty()) {
+            msgs.adicionar("Descrição é obrigatória.");
+        }
 
-		if (ativo.getValorMinimoAplicacao() <= 0) {
-			msgs.adicionar("Valor mínimo de aplicação deve ser maior que zero");
-		}
-		if (ativo.getValorMinimoAplicacao() > ativo.getValorMaximoAplicacao()) {
-			msgs.adicionar("Valor mínimo não pode ser maior que valor máximo");
-		}
+        if (ativo.getValorMinimoAplicacao() <= 0) {
+            msgs.adicionar("Valor mínimo de aplicação deve ser maior que zero.");
+        }
 
-		if (ativo.getValorMaximoAplicacao() <= 0) {
-			msgs.adicionar("Valor máximo de aplicação deve ser maior que zero");
-		}
-		if (ativo.getValorMaximoAplicacao() < ativo.getValorMinimoAplicacao()) {
-			msgs.adicionar("Valor máximo não pode ser menor que valor mínimo");
-		}
+        if (ativo.getValorMaximoAplicacao() < ativo.getValorMinimoAplicacao()) {
+            msgs.adicionar("Valor máximo de aplicação deve ser maior ou igual ao valor mínimo.");
+        }
 
-		if (ativo.getTaxaMensalMinima() < 0) {
-			msgs.adicionar("Taxa mensal mínima não pode ser negativa");
-		}
-		if (ativo.getTaxaMensalMinima() > ativo.getTaxaMensalMaxima()) {
-			msgs.adicionar("Taxa mensal mínima não pode ser maior que taxa máxima");
-		}
+        if (ativo.getTaxaMensalMinima() < 0) {
+            msgs.adicionar("Taxa mensal mínima deve ser maior ou igual a zero.");
+        }
 
-		if (ativo.getTaxaMensalMaxima() < 0) {
-			msgs.adicionar("Taxa mensal máxima não pode ser negativa");
-		}
-		if (ativo.getTaxaMensalMaxima() < ativo.getTaxaMensalMinima()) {
-			msgs.adicionar("Taxa mensal máxima não pode ser menor que taxa mínima");
-		}
+        if (ativo.getTaxaMensalMaxima() < ativo.getTaxaMensalMinima()) {
+            msgs.adicionar("Taxa mensal máxima deve ser maior ou igual à taxa mensal mínima.");
+        }
 
-		if (ativo.getFaixaMinimaPermitida() == null) {
-			msgs.adicionar("Faixa mínima permitida é obrigatória");
-		}
+        if (ativo.getFaixaMinimaPermitida() == null) {
+            msgs.adicionar("Faixa de renda mínima permitida é obrigatória.");
+        }
 
-		if (ativo.getPrazoEmMeses() <= 0) {
-			msgs.adicionar("Prazo em meses deve ser maior que zero");
-		}
+        if (ativo.getPrazoEmMeses() < 1) {
+            msgs.adicionar("Prazo em meses deve ser maior ou igual a um.");
+        }
 
-		return msgs;
-	}
+        return msgs;
+    }
 
-	public MensagensValidacao incluir(Ativo ativo) {
-		MensagensValidacao msgs = validar(ativo);
+    public MensagensValidacao incluir(Ativo ativo) {
+        MensagensValidacao msgs = validar(ativo);
 
-		if (msgs.estaVazio()) {
-			boolean resultado = dao.incluir(ativo);
+        if (msgs.estaVazio()) {
+            boolean resultado = dao.incluir(ativo);
+            if (!resultado) {
+                msgs.adicionar("Ativo já existente.");
+            }
+        }
+        return msgs;
+    }
 
-			if (!resultado) {
-				msgs.adicionar("Ativo já existente com este código");
-			}
-		}
+    public MensagensValidacao alterar(Ativo ativo) {
+        MensagensValidacao msgs = validar(ativo);
 
-		return msgs;
-	}
+        if (msgs.estaVazio()) {
+            boolean resultado = dao.alterar(ativo);
+            if (!resultado) {
+                msgs.adicionar("Ativo não existente.");
+            }
+        }
+        return msgs;
+    }
 
-	public MensagensValidacao alterar(Ativo ativo) {
+    public MensagensValidacao excluir(long codigo) {
+        MensagensValidacao msgs = new MensagensValidacao();
 
-		MensagensValidacao msgs = validar(ativo);
+        if (codigo <= 0) {
+            msgs.adicionar("Código deve ser maior que zero.");
+            return msgs;
+        }
 
-		if (msgs.estaVazio()) {
-			boolean resultado = dao.alterar(ativo);
+        boolean resultado = dao.excluir(codigo);
+        if (!resultado) {
+            msgs.adicionar("Ativo não existente.");
+        }
 
-			if (!resultado) {
-				msgs.adicionar("Ativo não existente com este código");
-			}
-		}
+        return msgs;
+    }
 
-		return msgs;
-	}
-
-	public MensagensValidacao excluir(long codigo) {
-		MensagensValidacao msgs = new MensagensValidacao();
-
-		if (codigo <= 0) {
-			msgs.adicionar("Código do ativo deve ser maior que zero");
-			return msgs;
-		}
-
-		boolean resultado = dao.excluir(codigo);
-
-		if (!resultado) {
-			msgs.adicionar("Ativo não existente com este código");
-		}
-
-		return msgs;
-	}
-
-	public Ativo buscar(long codigo) {
-
-		if (codigo <= 0) {
-			return null;
-		}
-
-		return dao.buscar(codigo);
-	}
+    public Ativo buscar(long codigo) {
+        if (codigo <= 0) {
+            return null;
+        }
+        return dao.buscar(codigo);
+    }
 }
