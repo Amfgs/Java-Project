@@ -126,7 +126,7 @@ public class Titulo implements Serializable {
         this.status = status;
     }
     
-   public boolean render() {
+  public boolean render() {
         LocalDate hoje = LocalDate.now();
 
         if (this.status != StatusTitulo.ATIVO) {
@@ -141,27 +141,30 @@ public class Titulo implements Serializable {
             return false;
         }
         
-        LocalDate dataReferencia = (this.dataUltimoRendimento == null) ? this.dataAplicacao : this.dataUltimoRendimento;
+        LocalDate dataReferencia;
+        if (this.dataUltimoRendimento == null) {
+            dataReferencia = this.dataAplicacao;
+        } else {
+            dataReferencia = this.dataUltimoRendimento;
+        }
 
-        if (hoje.isEqual(dataReferencia) || hoje.isBefore(dataReferencia)) {
+        if (!hoje.isAfter(dataReferencia)) {
             return false;
         }
 
         long dias = ChronoUnit.DAYS.between(dataReferencia, hoje);
-
+        
         if (dias <= 0) {
             return false;
         }
 
-        double taxaAoDia = this.taxaDiaria.doubleValue() / 100.0;
-        double fatorCrescimento = Math.pow(1.0 + taxaAoDia, (double) dias);
+        BigDecimal taxaCrescimento = BigDecimal.ONE.add(
+            this.taxaDiaria.divide(new BigDecimal("100"))
+        );
         
-        BigDecimal novoValor = this.valorAtual.multiply(BigDecimal.valueOf(fatorCrescimento)).setScale(2, java.math.RoundingMode.HALF_UP);
-
-        if (novoValor.compareTo(this.valorAtual) == 0 && dias > 0) {
-        }
-
-        this.valorAtual = novoValor;
+        BigDecimal fator = taxaCrescimento.pow((int) dias);
+        
+        this.valorAtual = this.valorAtual.multiply(fator);
         this.dataUltimoRendimento = hoje;
         
         return true;
