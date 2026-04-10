@@ -132,23 +132,16 @@ public class Titulo implements Serializable {
         if (this.status != StatusTitulo.ATIVO) {
             return false;
         }
-     
+        
         if (!hoje.isBefore(this.dataVencimento)) {
             return false;
         }
-        
         
         if (!hoje.isAfter(this.dataAplicacao)) {
             return false;
         }
         
-
-        LocalDate dataReferencia;
-        if (this.dataUltimoRendimento == null) {
-            dataReferencia = this.dataAplicacao;
-        } else {
-            dataReferencia = this.dataUltimoRendimento;
-        }
+        LocalDate dataReferencia = (this.dataUltimoRendimento == null) ? this.dataAplicacao : this.dataUltimoRendimento;
 
         if (hoje.isEqual(dataReferencia) || hoje.isBefore(dataReferencia)) {
             return false;
@@ -160,12 +153,14 @@ public class Titulo implements Serializable {
             return false;
         }
 
-        double taxa = this.taxaDiaria.doubleValue() / 100.0;
-        double fator = Math.pow(1.0 + taxa, (double) dias);
+        double taxaAoDia = this.taxaDiaria.doubleValue() / 100.0;
+        double fatorCrescimento = Math.pow(1.0 + taxaAoDia, (double) dias);
         
-        BigDecimal novoValor = this.valorAtual.multiply(BigDecimal.valueOf(fator));
+        BigDecimal novoValor = this.valorAtual.multiply(BigDecimal.valueOf(fatorCrescimento)).setScale(2, java.math.RoundingMode.HALF_UP);
 
-    
+        if (novoValor.compareTo(this.valorAtual) == 0 && dias > 0) {
+        }
+
         this.valorAtual = novoValor;
         this.dataUltimoRendimento = hoje;
         
