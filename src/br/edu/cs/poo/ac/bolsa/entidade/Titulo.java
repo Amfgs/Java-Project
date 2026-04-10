@@ -126,7 +126,7 @@ public class Titulo implements Serializable {
         this.status = status;
     }
     
-    public boolean render() {
+   public boolean render() {
         LocalDate hoje = LocalDate.now();
 
         if (this.status != StatusTitulo.ATIVO) {
@@ -148,7 +148,7 @@ public class Titulo implements Serializable {
             dataReferencia = this.dataUltimoRendimento;
         }
 
-        if (hoje.isBefore(dataReferencia) || hoje.isEqual(dataReferencia)) {
+        if (hoje.isEqual(dataReferencia)) {
             return false;
         }
 
@@ -158,10 +158,12 @@ public class Titulo implements Serializable {
             return false;
         }
 
-        double td = this.taxaDiaria.doubleValue() / 100.0;
-        double novoValorDouble = this.valorAtual.doubleValue() * Math.pow(1.0 + td, (double) dias);
+        double taxa = this.taxaDiaria.doubleValue() / 100.0;
+        
+        double fator = Math.pow(1.0 + taxa, (double) dias);
+        BigDecimal novoValor = this.valorAtual.multiply(BigDecimal.valueOf(fator));
 
-        this.valorAtual = new BigDecimal(novoValorDouble);
+        this.valorAtual = novoValor;
         this.dataUltimoRendimento = hoje;
         
         return true;
