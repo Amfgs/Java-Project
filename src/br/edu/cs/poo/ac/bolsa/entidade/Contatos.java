@@ -48,12 +48,12 @@ public class Contatos implements Serializable {
 		this.telefoneCelular = telefoneCelular;
 	}
 
-	public String getnumeroWhatsApp() {
+	public String getNumeroWhatsApp() {
 		return numeroWhatsApp;
 	}
 
 	public void setNumeroWhatsApp(String numeroWhatsApp) {
-		this.setNumeroWhatsApp(numeroWhatsApp);
+		this.numeroWhatsApp = numeroWhatsApp;
 	}	
 	
 	public String getNomeParaContato() {
