@@ -2,8 +2,6 @@ package br.edu.cs.poo.ac.bolsa.testes;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 

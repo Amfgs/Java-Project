@@ -6,9 +6,17 @@ import br.edu.cs.poo.ac.bolsa.util.MensagensValidacao;
 
 public class AtivoMediator {
 
+	private static AtivoMediator instancia;
 	private AtivoDAO dao = new AtivoDAO();
 
 	public AtivoMediator() {
+	}
+
+	public static AtivoMediator getInstancia() {
+		if (instancia == null) {
+			instancia = new AtivoMediator();
+		}
+		return instancia;
 	}
 
 	private MensagensValidacao validar(Ativo ativo) {
