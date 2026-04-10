@@ -9,7 +9,6 @@ import br.edu.cs.poo.ac.bolsa.entidade.InvestidorPessoa;
 import br.edu.cs.poo.ac.bolsa.entidade.Endereco;
 import br.edu.cs.poo.ac.bolsa.entidade.Contatos;
 import br.edu.cs.poo.ac.bolsa.util.MensagensValidacao;
-import br.edu.cs.poo.ac.bolsa.util.ResultadoValidacao;
 import br.edu.cs.poo.ac.bolsa.util.ValidadorCpfCnpj;
 
 public class InvestidorMediator {
@@ -37,16 +36,21 @@ public class InvestidorMediator {
 
     public MensagensValidacao excluirInvestidorPessoa(String cpf) {
         MensagensValidacao msgs = new MensagensValidacao();
-        if (cpf == null || cpf.trim().isEmpty()) {
+        
+        if (vazio(cpf)) {
             msgs.adicionar("CPF é obrigatório.");
-            return msgs;
+        } else if (ValidadorCpfCnpj.validarCpf(cpf) != null) {
+            msgs.adicionar("CPF inválido.");
         }
-        if (!daoPessoa.excluir(cpf.trim())) msgs.adicionar("Investidor não existente.");
+        
+        if (msgs.estaVazio()) {
+            if (!daoPessoa.excluir(cpf.trim())) msgs.adicionar("Investidor não existente.");
+        }
         return msgs;
     }
 
     public InvestidorPessoa buscarInvestidorPessoa(String cpf) {
-        if (cpf == null || cpf.trim().isEmpty()) return null;
+        if (vazio(cpf) || ValidadorCpfCnpj.validarCpf(cpf) != null) return null;
         return daoPessoa.buscar(cpf.trim());
     }
 
@@ -68,16 +72,20 @@ public class InvestidorMediator {
 
     public MensagensValidacao excluirInvestidorEmpresa(String cnpj) {
         MensagensValidacao msgs = new MensagensValidacao();
-        if (cnpj == null || cnpj.trim().isEmpty()) {
+        if (vazio(cnpj)) {
             msgs.adicionar("CNPJ é obrigatório.");
-            return msgs;
+        } else if (ValidadorCpfCnpj.validarCnpj(cnpj) != null) {
+            msgs.adicionar("CNPJ inválido.");
         }
-        if (!daoEmpresa.excluir(cnpj.trim())) msgs.adicionar("Investidor não existente.");
+        
+        if (msgs.estaVazio()) {
+            if (!daoEmpresa.excluir(cnpj.trim())) msgs.adicionar("Investidor não existente.");
+        }
         return msgs;
     }
 
     public InvestidorEmpresa buscarInvestidorEmpresa(String cnpj) {
-        if (cnpj == null || cnpj.trim().isEmpty()) return null;
+        if (vazio(cnpj) || ValidadorCpfCnpj.validarCnpj(cnpj) != null) return null;
         return daoEmpresa.buscar(cnpj.trim());
     }
 
@@ -108,7 +116,7 @@ public class InvestidorMediator {
     }
 
     private void validarDadosBasicos(Investidor inv, MensagensValidacao msgs) {
-        if (inv.getNome() == null || inv.getNome().trim().isEmpty()) {
+        if (vazio(inv.getNome())) {
             msgs.adicionar("Nome é obrigatório.");
         }
         
@@ -118,7 +126,7 @@ public class InvestidorMediator {
         } else {
             if (vazio(end.getLogradouro())) msgs.adicionar("Logradouro é obrigatório.");
             if (vazio(end.getNumero())) msgs.adicionar("Número é obrigatório.");
-            if (vazio(end.getCidade())) msgs.adicionar("Cidade é obrigatória.");
+            if (vazio(end.getCidade())) msgs.adicionar("Cidade é obrigatória."); // Corrigido: 'obrigatória'
             if (vazio(end.getEstado())) msgs.adicionar("Estado é obrigatório.");
             if (vazio(end.getPais())) msgs.adicionar("País é obrigatório.");
         }
@@ -132,13 +140,21 @@ public class InvestidorMediator {
             } else if (!cont.getEmail().contains("@") || !cont.getEmail().contains(".")) {
                 msgs.adicionar("Email inválido.");
             }
+            
             if (inv instanceof InvestidorEmpresa && vazio(cont.getNomeParaContato())) {
                 msgs.adicionar("Nome para contato é obrigatório.");
             }
+
+            
             String cel = cont.getTelefoneCelular();
-            if (cel != null && !cel.matches("[0-9]*")) msgs.adicionar("Telefone inválido.");
             String fixo = cont.getTelefoneFixo();
-            if (fixo != null && !fixo.matches("[0-9]*")) msgs.adicionar("Telefone inválido.");
+            
+            if (vazio(cel) && vazio(fixo)) {
+                msgs.adicionar("Telefone inválido.");
+            } else {
+                if (!vazio(cel) && !cel.matches("[0-9]+")) msgs.adicionar("Telefone inválido.");
+                if (!vazio(fixo) && !fixo.matches("[0-9]+")) msgs.adicionar("Telefone inválido.");
+            }
         }
 
         if (inv.getBonus() == null || inv.getBonus().compareTo(BigDecimal.ZERO) < 0) {
