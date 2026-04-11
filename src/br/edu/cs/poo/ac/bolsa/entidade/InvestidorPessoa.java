@@ -3,55 +3,54 @@ package br.edu.cs.poo.ac.bolsa.entidade;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class InvestidorPessoa extends Investidor{
-	private String cpf;
-	private double renda;
-	private FaixaRenda faixaRenda;
-	
-	public InvestidorPessoa() {
-		super();
-		this.cpf = null;
-		this.renda = 0.0;
-		this.faixaRenda = null;
-	}
+public class InvestidorPessoa extends Investidor {
+    private String cpf;
+    private double renda;
+    private FaixaRenda faixaRenda;
+    
+    public InvestidorPessoa() {
+        super();
+    }
 
-	public InvestidorPessoa(String cpf, double renda, FaixaRenda faixaRenda, String nome, Endereco endereco, LocalDate dataNascimento, BigDecimal bonus, Contatos contatos) {
-		super(nome, endereco, dataNascimento, bonus, contatos);
-		this.cpf = cpf;
-		this.renda = renda;	
-		this.faixaRenda = faixaRenda;
-	}
+    // Construtor corrigido para bater com a ordem do TituloTest
+    public InvestidorPessoa(String nome, Endereco endereco, LocalDate dataNascimento, 
+                           BigDecimal bonus, Contatos contatos, String cpf, 
+                           double renda, FaixaRenda faixaRenda) {
+        super(nome, endereco, dataNascimento, bonus, contatos);
+        this.cpf = cpf;
+        this.renda = renda; 
+        this.faixaRenda = faixaRenda;
+    }
 
-	public FaixaRenda getFaixaRenda() {
-		return faixaRenda;
-	}
+    public FaixaRenda getFaixaRenda() {
+        return faixaRenda;
+    }
 
-	public void setFaixaRenda(FaixaRenda faixaRenda) {
-		this.faixaRenda = faixaRenda;
-	}
+    public void setFaixaRenda(FaixaRenda faixaRenda) {
+        this.faixaRenda = faixaRenda;
+    }
 
-	public String getCpf() {
-		return cpf;
-	}
+    public String getCpf() {
+        return cpf;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-	public double getRenda() {
-		return renda;
-	}
+    public double getRenda() {
+        return renda;
+    }
 
-	public void setRenda(double renda) {
-		this.renda = renda;
-	}
-	
-	public LocalDate getDataNascimento() {
-		return getDataCriacao();
-	}
-	
-	public void setDataNascimento(LocalDate dataNascimento) {
-		setDataCriacao(dataNascimento);
-	}
-	
+    public void setRenda(double renda) {
+        this.renda = renda;
+    }
+    
+    public LocalDate getDataNascimento() {
+        return getDataCriacao();
+    }
+    
+    public void setDataNascimento(LocalDate dataNascimento) {
+        setDataCriacao(dataNascimento);
+    }
 }
