@@ -1,8 +1,8 @@
 package br.edu.cs.poo.ac.bolsa.negocio;
 
 import java.math.BigDecimal;
-import br.edu.cs.poo.ac.bolsa.dao.InvestidorEmpresaDAO;
-import br.edu.cs.poo.ac.bolsa.dao.InvestidorPessoaDAO;
+import br.edu.cs.poo.ac.bolsa.dao.DAOInvestidorEmpresa;
+import br.edu.cs.poo.ac.bolsa.dao.DAOInvestidorPessoa;
 import br.edu.cs.poo.ac.bolsa.entidade.Investidor;
 import br.edu.cs.poo.ac.bolsa.entidade.InvestidorEmpresa;
 import br.edu.cs.poo.ac.bolsa.entidade.InvestidorPessoa;
@@ -13,8 +13,8 @@ import br.edu.cs.poo.ac.bolsa.util.ValidadorCpfCnpj;
 
 public class InvestidorMediator {
 
-    private InvestidorPessoaDAO daoPessoa = new InvestidorPessoaDAO();
-    private InvestidorEmpresaDAO daoEmpresa = new InvestidorEmpresaDAO();
+    private DAOInvestidorPessoa daoPessoa = new DAOInvestidorPessoa();
+    private DAOInvestidorEmpresa daoEmpresa = new DAOInvestidorEmpresa();
 
     public InvestidorMediator() {}
 

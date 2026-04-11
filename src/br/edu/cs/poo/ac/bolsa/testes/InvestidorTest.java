@@ -15,10 +15,11 @@ public class InvestidorTest {
     void setup() {
         investidor = new Investidor(
                 "João Silva",
-                null, // mocks simples
+                null,                // mocks simples
                 LocalDate.now().minusYears(5),
-                new BigDecimal("100.00"), // bônus inicial
-                null);
+                new BigDecimal("100.00"),      // bônus inicial
+                null
+        );
     }
 
     // ---------------------------------------------------------

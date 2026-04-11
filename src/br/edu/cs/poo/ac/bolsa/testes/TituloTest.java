@@ -19,22 +19,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TituloTest {
 
-    private InvestidorPessoa pessoa;
+    private InvestidorPessoa pessoa; 
     private InvestidorEmpresa empresa;
-    private Ativo ativo = new Ativo(1010, "Ativo 1", 1000.0, 10000000.0, 0.1, 4.0, FaixaRenda.REGULAR, 120);
+    private Ativo ativo = new Ativo(1010,"Ativo 1", 1000.0, 10000000.0, 0.1, 4.0, FaixaRenda.REGULAR, 120);
 
     @BeforeEach
     void setup() {
-        pessoa = new InvestidorPessoa("12345678901", 30000.00, FaixaRenda.REGULAR, "MARCOS", null, null,
-                BigDecimal.ZERO, null);
-        empresa = new InvestidorEmpresa("12345678901234", 3000000.00, "ACME", null, null, BigDecimal.ZERO, null);
-        ativo = new Ativo(123456, "C-BONDS", 10000.00, 1000000000.00, 0.10, 1.00, FaixaRenda.REGULAR, 24);
+        pessoa = new InvestidorPessoa("MARCOS", null, null, BigDecimal.ZERO, null,"12345678901", 30000.00, FaixaRenda.REGULAR);        		        		
+        empresa = new InvestidorEmpresa("ACME", null, null,BigDecimal.ZERO, null,"12345678901234", 3000000.00);
+        ativo = new Ativo(123456, "C-BONDS",10000.00, 1000000000.00,0.10, 1.00,FaixaRenda.REGULAR, 24);
     }
 
     private Titulo criarTituloPadrao() {
-        return new Titulo(pessoa, empresa, ativo, new BigDecimal("1000.00"), new BigDecimal("1000.00"),
-                new BigDecimal("1.0"), LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), null,
-                StatusTitulo.ATIVO);
+        return new Titulo(pessoa, empresa, ativo, new BigDecimal("1000.00"), new BigDecimal("1000.00"), new BigDecimal("1.0"), LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), null,StatusTitulo.ATIVO);
     }
 
     // ---------------------------------------------------------
@@ -129,23 +126,23 @@ public class TituloTest {
         t.render();
 
         // Fórmula esperada: 1000 * (1.01)^3
-        BigDecimal esperado = new BigDecimal("1000").multiply(new BigDecimal("1.01").pow(3));
+        BigDecimal esperado = new BigDecimal("1000")
+                .multiply(new BigDecimal("1.01").pow(3));
 
         assertEquals(0, t.getValorAtual().compareTo(esperado));
     }
-
     @Test
     void testGetNumeroParaInvestidorPessoa() {
 
         // Mocks simples
-        InvestidorPessoa pessoa = new InvestidorPessoa(null, 100000.0, FaixaRenda.DIFERENCIADA, "MARCUS", null, null,
-                BigDecimal.ZERO, null);
+        InvestidorPessoa pessoa = new InvestidorPessoa("MARCUS", null, null, BigDecimal.ZERO, null, null, 100000.0, FaixaRenda.DIFERENCIADA);
         pessoa.setCpf("12345678901");
+
+        
 
         LocalDate dataAplicacao = LocalDate.of(2024, 3, 10);
 
-        Titulo titulo = new Titulo(pessoa, null, ativo, BigDecimal.TEN, BigDecimal.TEN, BigDecimal.ONE, dataAplicacao,
-                dataAplicacao.plusDays(30), null, StatusTitulo.ATIVO);
+        Titulo titulo = new Titulo(pessoa,null, ativo, BigDecimal.TEN, BigDecimal.TEN, BigDecimal.ONE, dataAplicacao, dataAplicacao.plusDays(30), null, StatusTitulo.ATIVO );
 
         String esperado = "000" + pessoa.getCpf() + ativo.getCodigo() + "202403100000";
 
@@ -156,17 +153,15 @@ public class TituloTest {
     void testGetNumeroParaInvestidorEmpresa() {
 
         // Mocks simples
-        InvestidorEmpresa empresa = new InvestidorEmpresa(null, 100000.0, "ACME", null, null, BigDecimal.ZERO, null);
+        InvestidorEmpresa empresa = new InvestidorEmpresa("ACME", null, null, BigDecimal.ZERO, null, null, 100000.0);
         empresa.setCnpj("11222333444455");
 
         LocalDate dataAplicacao = LocalDate.of(2024, 5, 20);
 
-        Titulo titulo = new Titulo(null, empresa, ativo, BigDecimal.TEN, BigDecimal.TEN, BigDecimal.ONE, dataAplicacao,
-                dataAplicacao.plusDays(60), null, StatusTitulo.ATIVO);
+        Titulo titulo = new Titulo(null,empresa,ativo,BigDecimal.TEN, BigDecimal.TEN, BigDecimal.ONE, dataAplicacao, dataAplicacao.plusDays(60), null, StatusTitulo.ATIVO);
 
         String esperado = empresa.getCnpj() + ativo.getCodigo() + "202405200000";
 
         assertEquals(esperado, titulo.getNumero());
-        // nada
     }
 }
